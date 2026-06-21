@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { db } from './firebase';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 
 const icons = {
   timetable: (active, color) => (
@@ -15,7 +17,7 @@ const icons = {
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 17H3v-5l2.5-5h11L19 12v5h-2"/>
       <circle cx="7.5" cy="17" r="1.5"/>
-      <circle cx="16.5" cy="17" r="1.5"/>
+      <circle cx="16.5" cy="17" r="1.5"/> 
       <line x1="9" y1="17" x2="15" y2="17"/>
       <line x1="3" y1="12" x2="19" y2="12"/>
     </svg>
@@ -392,6 +394,37 @@ function App() {
   const [drivingSessions, setDrivingSessions] = useState([]);
   const [dark, setDark] = useState(false);
   const [fontSize, setFontSize] = useState('medium');
+  const lastSynced = useRef(null);
+  const loaded = useRef(false);
+
+  useEffect(() => {
+    const ref = doc(db, 'appData', 'main');
+    const unsub = onSnapshot(ref, (snap) => {
+      const data = snap.data();
+      if (data) {
+        const json = JSON.stringify(data);
+        if (json !== lastSynced.current) {
+          lastSynced.current = json;
+          setTasks(data.tasks || []);
+          setTimetable(data.timetable || {});
+          setDrivingSessions(data.drivingSessions || []);
+          setDark(data.dark || false);
+          setFontSize(data.fontSize || 'medium');
+        }
+      }
+      loaded.current = true;
+    }, (err) => console.error('onSnapshot error', err));
+    return unsub;
+  }, []);
+
+  useEffect(() => {
+    if (!loaded.current) return;
+    const data = { tasks, timetable, drivingSessions, dark, fontSize };
+    const json = JSON.stringify(data);
+    if (json === lastSynced.current) return;
+    lastSynced.current = json;
+    setDoc(doc(db, 'appData', 'main'), data).catch((err) => console.error('setDoc error', err));
+  }, [tasks, timetable, drivingSessions, dark, fontSize]);
 
   const theme = {
     bg: dark ? '#111' : '#fff',
