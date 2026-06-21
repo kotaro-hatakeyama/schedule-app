@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# schedule-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+大学生向けのスケジュール管理アプリです。タスク管理・時間割・教習（自動車学校）の予約管理を一つのアプリでまとめて行えます。
 
-## Available Scripts
+## 機能一覧
 
-In the project directory, you can run:
+### タスク
+- タスクの追加・完了切り替え・削除
+- 期限（日付・時刻）の設定と、期限までの残り日数表示（「今日まで」「明日まで」「期限切れ」など）
+- タスクごとに6色（赤・橙・黄・緑・青・紫）のラベルカラーを設定可能
+- 期限が近いタスクが上に来るよう自動で並び替え
 
-### `npm start`
+### 時間割
+- 月〜金・1〜6限のグリッドで授業を登録
+- 授業名・教室・カラーラベルを設定
+- 今日の曜日をハイライト表示
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 教習
+- 自動車学校の「学科」「技能」の予約を登録・削除
+- 予定日時とメモ（例：第1段階 みきわめ）を記録
+- 予定/過去で自動的にセクション分け、当日・翌日・何日後かのバッジ表示
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 設定
+- ダークモード切り替え
+- 文字サイズ（小・中・大）の変更
 
-### `npm test`
+### データ同期
+- Firebase Firestore を使い、入力したデータをリアルタイムに保存・同期
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 使用技術
 
-### `npm run build`
+- [React](https://react.dev/) 19
+- [Create React App](https://create-react-app.dev/)（react-scripts）
+- [Firebase](https://firebase.google.com/)（Cloud Firestore / Hosting）
+- JavaScript（インラインスタイルによるUI実装、外部UIライブラリは未使用）
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## スクリーンショット
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+screenshots フォルダ（未作成）に画面キャプチャを配置予定です。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## セットアップ
 
-### `npm run eject`
+```bash
+npm install
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`http://localhost:3000` でアプリが起動します。
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ビルド・デプロイ
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm run build
+firebase deploy
+```
