@@ -36,7 +36,13 @@
 
 ## スクリーンショット
 
-screenshots フォルダ（未作成）に画面キャプチャを配置予定です。
+| 時間割 | 教習 |
+| --- | --- |
+| ![時間割](screenshots/timetable.png) | ![教習](screenshots/driving.png) |
+
+| タスク | 設定 |
+| --- | --- |
+| ![タスク](screenshots/task.png) | ![設定](screenshots/settings.png) |
 
 ## セットアップ
 
